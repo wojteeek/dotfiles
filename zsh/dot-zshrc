@@ -1,0 +1,33 @@
+ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="wojtek"
+COMPLETION_WAITING_DOTS="true"
+plugins=(rvm rails git brew)
+
+source $ZSH/oh-my-zsh.sh
+
+
+
+function cd() {
+  if [ -z "$1" ]; then
+    cd ~
+  else
+    builtin cd "$1" && ls
+  fi
+}
+
+bindkey "^R" history-incremental-search-backward
+bindkey -a u undo
+bindkey -a '^R' redo
+
+alias merge-cleanup="find . \( -name '*.orig' -or  -name '*.BACKUP.*' -or -name '*.BASE.*' -or -name '*.LOCAL.*' -or -name '*.REMOTE.*' \) -exec rm {} \;"
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LSCOLORS=""
+
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH=/usr/local/bin:/bin:/usr/sbin:/sbin:/usr/bin:/usr/local/sbin
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
